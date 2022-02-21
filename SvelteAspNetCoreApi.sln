@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvelteAspNetCoreApi", "SvelteAspNetCoreApi.csproj", "{D390BF78-7E3E-4BC1-ABBA-C392E7B05604}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D390BF78-7E3E-4BC1-ABBA-C392E7B05604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D390BF78-7E3E-4BC1-ABBA-C392E7B05604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D390BF78-7E3E-4BC1-ABBA-C392E7B05604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D390BF78-7E3E-4BC1-ABBA-C392E7B05604}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCFA49E9-2342-4D1E-BEF9-3BBBBE94E8C5}
+	EndGlobalSection
+EndGlobal
