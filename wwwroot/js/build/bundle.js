@@ -47,6 +47,12 @@
     function space() {
         return text(' ');
     }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
+    }
     function children(element) {
         return Array.from(element.childNodes);
     }
@@ -511,10 +517,11 @@
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[2] = list[i];
+    	child_ctx[4] = i;
     	return child_ctx;
     }
 
-    // (32:8) {:catch error}
+    // (39:16) {:catch error}
     function create_catch_block(ctx) {
     	let p;
 
@@ -533,12 +540,12 @@
     	};
     }
 
-    // (15:8) {:then data}
+    // (16:16) {:then data}
     function create_then_block(ctx) {
     	let table;
+    	let thead;
+    	let t5;
     	let tbody;
-    	let t3;
-    	let body;
     	let each_value = /*data*/ ctx[1];
     	let each_blocks = [];
 
@@ -549,26 +556,30 @@
     	return {
     		c() {
     			table = element("table");
+    			thead = element("thead");
+
+    			thead.innerHTML = `<tr><th scope="col">#</th> 
+                        <th scope="col">Ad</th> 
+                        <th scope="col">Soyad</th></tr>`;
+
+    			t5 = space();
     			tbody = element("tbody");
-
-    			tbody.innerHTML = `<tr><th>Ad</th> 
-                        <th>Soyad</th></tr>`;
-
-    			t3 = space();
-    			body = element("body");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
+
+    			attr(table, "border", "1");
+    			attr(table, "class", "table");
     		},
     		m(target, anchor) {
     			insert(target, table, anchor);
+    			append(table, thead);
+    			append(table, t5);
     			append(table, tbody);
-    			append(table, t3);
-    			append(table, body);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(body, null);
+    				each_blocks[i].m(tbody, null);
     			}
     		},
     		p(ctx, dirty) {
@@ -584,7 +595,7 @@
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(body, null);
+    						each_blocks[i].m(tbody, null);
     					}
     				}
 
@@ -602,36 +613,50 @@
     	};
     }
 
-    // (24:20) {#each data as user}
+    // (26:24) {#each data as user, i}
     function create_each_block(ctx) {
     	let tr;
-    	let td0;
-    	let t0_value = /*user*/ ctx[2].name + "";
+    	let th;
+    	let t0_value = /*i*/ ctx[4] + 1 + "";
     	let t0;
     	let t1;
-    	let td1;
-    	let t2_value = /*user*/ ctx[2].surname + "";
+    	let td0;
+    	let t2_value = /*user*/ ctx[2].name + "";
     	let t2;
     	let t3;
+    	let td1;
+    	let t4_value = /*user*/ ctx[2].surname + "";
+    	let t4;
+    	let t5;
+    	let t6;
 
     	return {
     		c() {
     			tr = element("tr");
-    			td0 = element("td");
+    			th = element("th");
     			t0 = text(t0_value);
     			t1 = space();
-    			td1 = element("td");
+    			td0 = element("td");
     			t2 = text(t2_value);
     			t3 = space();
+    			td1 = element("td");
+    			t4 = text(t4_value);
+    			t5 = text("}");
+    			t6 = space();
+    			attr(th, "scope", "row");
     		},
     		m(target, anchor) {
     			insert(target, tr, anchor);
-    			append(tr, td0);
-    			append(td0, t0);
+    			append(tr, th);
+    			append(th, t0);
     			append(tr, t1);
-    			append(tr, td1);
-    			append(td1, t2);
+    			append(tr, td0);
+    			append(td0, t2);
     			append(tr, t3);
+    			append(tr, td1);
+    			append(td1, t4);
+    			append(td1, t5);
+    			append(tr, t6);
     		},
     		p: noop,
     		d(detaching) {
@@ -640,7 +665,7 @@
     	};
     }
 
-    // (13:22)           <p>...waiting</p>          {:then data}
+    // (14:30)                   <p>...waiting</p>                  {:then data}
     function create_pending_block(ctx) {
     	let p;
 
