@@ -3,3 +3,4 @@
 
 // Write your JavaScript code.
 import App from '../svelte/App.svelte'
+import UserTable from '../svelte/UserTable.svelte'
