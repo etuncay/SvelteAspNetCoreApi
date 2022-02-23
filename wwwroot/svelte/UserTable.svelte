@@ -27,7 +27,7 @@
                       <tr>
                         <th scope="row">{i+1}</th>
                         <td>{user.name}</td>
-                        <td>{user.surname}}</td>
+                        <td>{user.surname}</td>
                       </tr>
                       {/each}
 
